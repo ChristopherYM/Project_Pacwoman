@@ -8,10 +8,14 @@ BITMAP *buffer;
 BITMAP *roca;
 BITMAP *pacbmp;
 BITMAP *pacman;
+BITMAP *enemigobmp;
+BITMAP *enemigo;
 
 
 int dir;
 int px=30*10, py=30*10;
+int fdir;
+int _x=30*14 , _y=30*13;
 
 char mapa_1[Filas][Columnas] = {
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -59,6 +63,43 @@ void dibujarpersonaje(){
 
 }
 
+void dibujar_fantasma(){
+    blit(enemigobmp, enemigo,0,0,0,0,30,30);
+    draw_sprite(buffer, enemigo, _x, _y);
+}
+
+void fantasma(){
+    dibujar_fantasma();
+    if (fdir==0){
+        if(mapa_1[_y/30][(_x-30)/30] != 'X')
+            _x-=30;
+        else
+            fdir = rand()%3;
+    }
+    if (fdir==1){
+        if(mapa_1[_y/30][(_x+30)/30]!= 'X')
+            _x+=30;
+        else
+            fdir = rand()%3;
+    }
+    if (fdir==2){
+        if(mapa_1[(_y-30)/30][(_x)/30]!= 'X')
+            _y-=30;
+        else
+            fdir = rand()%3;
+    }
+    if (fdir==3){
+        if(mapa_1[(_y+30)/30][(_x)/30]!= 'X')
+            _y+=30;
+        else
+            fdir = rand()%3;
+        }
+    if(_x<=-30)
+        _x=870;
+    else if (_x>=870)
+        _x=-30;
+}
+
 int main()
 {
     allegro_init();
@@ -72,6 +113,8 @@ int main()
 
     pacbmp = load_bitmap("pacman.bmp",NULL);
     pacman = create_bitmap(30,30);
+    enemigo = create_bitmap (30,30);
+    enemigobmp = load_bitmap("enemigo.bmp",NULL);
 
     while(!key[KEY_ESC]){
         if (key[KEY_LEFT]) dir=2;
@@ -108,6 +151,7 @@ int main()
 
         dibujar_mapa();
         dibujarpersonaje();
+        fantasma();
         pantalla();
         rest(90);
 
