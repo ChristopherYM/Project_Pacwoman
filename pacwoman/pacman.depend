@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1510151922 source:c:\users\usuario\ccomp2\pacman\main.cpp
+	<allegro.h>
+	<cstdlib>
+
