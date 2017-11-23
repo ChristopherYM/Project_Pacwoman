@@ -1,52 +1,67 @@
 #include <allegro.h>
 #include <cstdlib>
 
+#include "personaje.h"
+#include "entidad.h"
+
+
 #define Filas 21
 #define Columnas 31
 
-BITMAP *buffer;
+BITMAP *escenario;
 BITMAP *roca;
-BITMAP *pacbmp;
+BITMAP *pacman_mb;
 BITMAP *pacman;
-BITMAP *enemigobmp;
+BITMAP *enemigo_mb;
 BITMAP *enemigo;
+BITMAP *coin;
+BITMAP *muerte;
 
 
-int dir;
-int px=30*10, py=30*10;
-int fdir;
-int _x=30*14 , _y=30*13;
+personaje pacman1;
+pacman1.setPosicion(30*10,30*10);
+
+personaje enemigo1;
+enemigo1.setPosicion(30*14, 30*13);
+
+
 
 char mapa_1[Filas][Columnas] = {
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "X                           X",
-    "X                           X",
-    "X       X          X        X",
-    "X                           X",
-    "X                           X",
-    "X                           X",
-    "X                           X",
-    "X    X                 X    X",
-    "X     X               X     X",
-    "X      XXXXXXXXXXXXXXX      X",
-    "X                           X",
-    "X                           X",
-    "X                           X",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "                              ",
+    "                              ",
+    "                              ",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "Xooooooooooooooooooooooooooo X",
+    "X XXXXXXXX XXXXXXXX XXXXXXXX X",
+    "X X      X X      X X      X X",
+    "X XXXXXXXX XXXXXXXX XXXXXXXX X",
+    "Xooooooooooooooooooooooooooo X",
+    "X XXX XXXXXXXX  XXXXXXXX XXX X",
+    "X X X X      X  X      X X X X",
+    "X X X XXXXXXXX  XXXXXXXX X X X",
+    "X X X                    X X X",
+    "X X X XXXXXXXX  XXXXXXXX X X X",
+    "X XXX                    XXX X",
+    "X oooooooooooooooooooooooooo X",
+    "X XXXXXXXX XXXXXXXX XXXXXXXX X",
+    "X X      X X      X X      X X",
+    "X XXXXXXXX XXXXXXXX XXXXXXXX X",
+    "Xooooooooooooooooooooooooooo X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+
 };
 
 void dibujar_mapa(){
-    int row, col;
-    for (row=0; row< Filas; row++){
-        for(col=0; col<Columnas; col++){
-            if (mapa_1[row][col]=='X')
-                draw_sprite(buffer,roca,col*30,row*30);
+    int filas_m1, col_m1;
+    for (filas_m1=0; filas_m1< Filas; filas_m1++){
+        for(col_m1=0; col_m1<Columnas; col_m1++){
+            if (mapa_1[filas_m1][col_m1]=='X')
+                draw_sprite(escenario,roca,col_m1*30,filas_m1*30);
+            else if (mapa_1[filas_m1][col_m1]=='o'){
+                draw_sprite(escenario,coin,col_m1*30,filas_m1*30);
+                if(pacman1.posY/30 ==filas_m1 && pacman1.posX/30==col_m1)
+                    mapa_1[filas_m1][col_m1]= ' ';
+            }
         }
     }
 }
@@ -54,51 +69,15 @@ void dibujar_mapa(){
 
 
 void pantalla(){
-    blit(buffer, screen, 0,0,0,0,900,700);
+    blit(escenario, screen, 0,0,0,0,900,700);
 }
 
 void dibujarpersonaje(){
-    blit(pacbmp, pacman, dir*30,0,0,0,30,30);
-    draw_sprite(buffer, pacman, px, py);
+    blit(pacman_mb, pacman, pacman1.direccion*30,0,0,0,30,30);
+    draw_sprite(escenario, pacman, pacman1.posY, pacman1.posX);
 
 }
 
-void dibujar_fantasma(){
-    blit(enemigobmp, enemigo,0,0,0,0,30,30);
-    draw_sprite(buffer, enemigo, _x, _y);
-}
-
-void fantasma(){
-    dibujar_fantasma();
-    if (fdir==0){
-        if(mapa_1[_y/30][(_x-30)/30] != 'X')
-            _x-=30;
-        else
-            fdir = rand()%3;
-    }
-    if (fdir==1){
-        if(mapa_1[_y/30][(_x+30)/30]!= 'X')
-            _x+=30;
-        else
-            fdir = rand()%3;
-    }
-    if (fdir==2){
-        if(mapa_1[(_y-30)/30][(_x)/30]!= 'X')
-            _y-=30;
-        else
-            fdir = rand()%3;
-    }
-    if (fdir==3){
-        if(mapa_1[(_y+30)/30][(_x)/30]!= 'X')
-            _y+=30;
-        else
-            fdir = rand()%3;
-        }
-    if(_x<=-30)
-        _x=870;
-    else if (_x>=870)
-        _x=-30;
-}
 
 int main()
 {
@@ -108,46 +87,50 @@ int main()
     set_color_depth(32);
     set_gfx_mode(GFX_AUTODETECT_WINDOWED,900,630,0,0);
 
-    buffer = create_bitmap (900,680);
+    escenario = create_bitmap (900,680);
     roca= load_bitmap("roca.bmp",NULL);
 
-    pacbmp = load_bitmap("pacman.bmp",NULL);
+    pacman_mb = load_bitmap("pacman.bmp",NULL);
     pacman = create_bitmap(30,30);
     enemigo = create_bitmap (30,30);
-    enemigobmp = load_bitmap("enemigo.bmp",NULL);
+    enemigo_mb = load_bitmap("enemigo.bmp",NULL);
+    coin = load_bitmap("coin.bmp",NULL);
+    muerte = muerte("muerte.bmp",NULL);
+
 
     while(!key[KEY_ESC]){
-        if (key[KEY_LEFT]) dir=2;
-        else if (key[KEY_RIGHT]) dir=0;
-        else if (key[KEY_UP]) dir=4;
-        else if (key[KEY_DOWN]) dir=3;
 
-        if(dir==0) {
-            if (mapa_1[py/30][(px+30)/30] != 'X')
-                px +=30;
+        if (key[KEY_LEFT]) pacman1.direccion=2;
+        else if (key[KEY_RIGHT]) pacman1.direccion=0;
+        else if (key[KEY_UP]) pacman1.direccion=4;
+        else if (key[KEY_DOWN]) pacman1.direccion=3;
+
+        if(pacman1.direccion==0) {
+            if (mapa_1[pacman1.posY/30][(pacman1.posX+30)/30] != 'X')
+                pacman1.posX +=30;
             else
-                dir=1;
+                pacman1.direccion=1;
         }
-        if(dir==2) {
-            if (mapa_1[py/30][(px-30)/30] != 'X')
-                px -=30;
+        if(pacman1.direccion==2) {
+            if (mapa_1[pacman1.posY/30][(pacman1.posY-30)/30] != 'X')
+                pacman1.posX -=30;
             else
-                dir=1;
+                pacman1.direccion=1;
             }
-        if (dir==4) {
-            if (mapa_1[(py-30)/30][px/30]!= 'X')
-                py -=30;
+        if (pacman1.direccion==4) {
+            if (mapa_1[(pacman1.posY-30)/30][pacman1.posX/30]!= 'X')
+                pacman1.posY -=30;
             else
-                dir=1;
+                pacman1.direccion=1;
                 }
-        if(dir==3) {
-             if (mapa_1[(py+30)/30][px/30]!= 'X')
-                py +=30;
+        if(pacman1.direccion==3) {
+             if (mapa_1[(pacman1.posY+30)/30][pacman1.posY/30]!= 'X')
+                pacman1.posY +=30;
             else
-                dir=1;
+                pacman1.direccion=1;
         }
 
-        clear(buffer);
+        clear(escenario);
 
         dibujar_mapa();
         dibujarpersonaje();
@@ -156,11 +139,12 @@ int main()
         rest(90);
 
         clear(pacman);
-        blit(pacbmp,pacman, 1*30,0,0,0,30,30);
-        draw_sprite(buffer, pacman, px,py);
+        blit(pacman_mb,pacman, 1*30,0,0,0,30,30);
+        draw_sprite(escenario, pacman, pacman1.posX,pacman1.posY);
         pantalla();
         rest(90);
     }
+    return 0;
     return 0;
 }
 END_OF_MAIN();

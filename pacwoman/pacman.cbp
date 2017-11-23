@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,27 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/entidad.h">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="include/mapa.h">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="include/pacman.h">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="include/personaje.h">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="include/powerup.h">
+			<Option compile="1" />
+		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="src/entidad.cpp" />
+		<Unit filename="src/mapa.cpp" />
+		<Unit filename="src/pacman.cpp" />
+		<Unit filename="src/personaje.cpp" />
+		<Unit filename="src/powerup.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
