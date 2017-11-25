@@ -8,7 +8,6 @@ class entidad
         int direccion;
         int posX, posY;
 
-
         virtual void setPosicion(int x, int y)= 0  ;
 
 

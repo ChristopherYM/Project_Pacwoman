@@ -11,7 +11,6 @@ class mapa
         mapa(int x, int y){
         filas=x;
         columnas=y;
-
         }
 
         void crearMapa1(){
@@ -19,9 +18,7 @@ class mapa
         for (int i=0; i<filas;i++)
             mapa_[i]=new char[columnas];
 
-
         }
-
 };
 
 #endif // MAPA_H
