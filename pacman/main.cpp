@@ -27,6 +27,8 @@ int main()
     while(!key[KEY_ESC]){
 
         pacman1.movimiento(mapa1,1);
+
+
         for (int filas_m1=0; filas_m1< 17; filas_m1++){
                 for(int col_m1=0; col_m1<40; col_m1++){
                     if (pacman1.posY/30==filas_m1 && pacman1.posX/30 == col_m1)
@@ -38,16 +40,19 @@ int main()
         mapa1.dibujar_mapa();
 
         pacman1.dibujarPersonaje(mapa1,true);
+        pacman1.choqueFantasma(fantasma1,mapa1,juego);
 
         fantasma1.dibujar_fantasma(mapa1);
         fantasma1.movimientoFantasma(mapa1);
-        //pacman1.choqueFantasma(fantasma1,mapa1);
+
+
         juego.pantalla(mapa1);
         rest(90);
 
         clear(pacman1.pacman);
 
         pacman1.dibujarPersonaje(mapa1, false);
+        pacman1.choqueFantasma(fantasma1,mapa1,juego);
 
         juego.pantalla(mapa1);
         rest(90);

@@ -1,9 +1,10 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 #include <allegro.h>
+
 #include "escenario.h"
 #include "personaje.h"
-#include "enemigo.h"
+
 
 
 class powerup

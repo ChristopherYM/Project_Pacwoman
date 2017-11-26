@@ -2,10 +2,9 @@
 #define CLASEALLEGRO_H
 #include <allegro.h>
 #include <cstdlib>
-
-#include "personaje.h"
-#include "entidad.h"
 #include "escenario.h"
+
+
 
 class claseallegro
 {

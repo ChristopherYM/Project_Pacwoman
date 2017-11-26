@@ -1,10 +1,11 @@
 #ifndef ENEMIGO_H
 #define ENEMIGO_H
 
-#include "entidad.h"
 #include "escenario.h"
-#include "claseallegro.h"
-#include "personaje.h"
+#include "entidad.h"
+
+
+
 #include <allegro.h>
 #include <cstdlib>
 
@@ -15,9 +16,11 @@ class enemigo : public entidad
         BITMAP *enemigo_;
 
         enemigo(){
-            enemigo_ = create_bitmap (30,30);
-            enemigo_mb = load_bitmap("enemigo3.bmp",NULL);
+            posX=0;
+            posY=0;
             direccion=0;
+            enemigo_ = create_bitmap (30,30);
+            enemigo_mb = load_bitmap("enemigo.bmp",NULL);
             }
 
         void setPosicion(int x, int y){
@@ -27,6 +30,8 @@ class enemigo : public entidad
         void dibujar_fantasma(escenario escenario1){
             blit(enemigo_mb, enemigo_,0,0,0,0,30,30);
             draw_sprite(escenario1.escenario_, enemigo_, posX, posY);}
+
+
 
         void movimientoFantasma(escenario escenario1){
 
@@ -51,10 +56,13 @@ class enemigo : public entidad
                 else
                     direccion = rand()% 2 + 0;}
             if(posX<=-30)
-                posX=1000;
-            else if (posX>=1000)
+                posX=1200;
+            else if (posX>=1200)
                 posX=-30;}
 
+
 };
+
+
 
 #endif // ENEMIGO_H

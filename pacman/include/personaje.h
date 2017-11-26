@@ -6,6 +6,8 @@
 #include "claseallegro.h"
 #include "enemigo.h"
 
+#include <allegro.h>
+
 
 class personaje : public entidad
 {
@@ -21,21 +23,8 @@ class personaje : public entidad
         pacman_mb = load_bitmap("pacman.bmp",NULL);
         muerte = load_bitmap("muerte.bmp",NULL);
         pacman = create_bitmap(30,30);
-        }
 
-        /*void choqueFantasma(enemigo fantasma1,escenario escenario1){
-            if ((posY == fantasma1.posY && posX == fantasma1.posX)|| (posY==(fantasma1.posY-20) && posX ==(fantasma1.posX-20))){
-                for (int j=0; j<=5; j++){
-                    clear(pacman);
-                    clear(escenario1.escenario_);
-                    escenario1.dibujar_mapa();
-                    blit(pacman_mb,muerte,j*20,0,0,0,20,20);
-                    draw_sprite(escenario1.escenario_,muerte,posX, posY);
-                    //juego.pantalla();
-                    rest(90);}
-                posX=20*10;
-                posY=20*12;
-                direccion=1;}}*/
+        }
 
         void setPosicion(int x, int y){
             posX=x;
@@ -53,6 +42,7 @@ class personaje : public entidad
         }
 
         void movimiento( escenario escenario1, int numJugadores){
+
 
             if (numJugadores==1){
                 if (key[KEY_LEFT]) direccion=2;
@@ -73,7 +63,7 @@ class personaje : public entidad
                 else if (key[KEY_K]) direccion=3; }
 
             if(direccion==2) {
-                if (escenario1.mapa_1[posY/20][(posX-30)/30] != 'X')
+                if (escenario1.mapa_1[posY/30][(posX-30)/30] != 'X')
                     posX -=30;
                 else
                     direccion=1;
@@ -106,6 +96,21 @@ class personaje : public entidad
                         mapa1.mapa_1[filas_m1][col_m1]=' ';}}
 
         }
+
+        void choqueFantasma(enemigo en1,escenario escenario1, claseallegro juego){
+
+            if ((en1.posY == posY && en1.posX == posX) || (posY == en1.posY-30 && posX == en1.posX-30) || (posY == en1.posY+30 && posX == en1.posX+30)){
+                for (int j=0; j<=6;j++){
+                    clear(pacman);
+                    clear(escenario1.escenario_);
+                    escenario1.dibujar_mapa();
+                        blit(muerte,pacman,j*30,0,0,0,30,30);
+                        draw_sprite(escenario1.escenario_,pacman,posX, posY);
+                        juego.pantalla(escenario1);
+                        rest(90);}
+                    posX=30*10;
+                    posY=30*12;
+                    direccion=1;}}
 
 
 

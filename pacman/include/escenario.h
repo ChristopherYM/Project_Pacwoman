@@ -31,6 +31,7 @@ class escenario
         BITMAP *roca18;
         BITMAP *roca19;
 
+
         char mapa_1[Filas][Columnas]={
                 "              N N     N N              ",
                 " AZZZZZZZZZZZSV V     V VAZZZZZZZZZZZS ",
