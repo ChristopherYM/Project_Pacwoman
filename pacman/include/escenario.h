@@ -2,6 +2,7 @@
 #define ESCENARIO_H
 #include <allegro.h>
 
+
 #define Filas 17
 #define Columnas 40
 using namespace std;
@@ -33,23 +34,41 @@ class escenario
 
 
         char mapa_1[Filas][Columnas]={
-                "              N N     N N              ",
-                " AZZZZZZZZZZZSV V     V VAZZZZZZZZZZZS ",
-                " V           VV V     V VV           V ",
-                " V XZZC XZZC MD MZZZZZD MD XZZC XZZC V ",
+                "              NoN     NoN              ",
+                " AZZZZZZZZZZZSVoV     VoVAZZZZZZZZZZZS ",
+                " VoooooooooooVVoV     VoVVoooooooooooV ",
+                " VoXZZCoXZZCoMDoMZZZZZDoMDoXZZCoXZZCoV ",
+                " VoooooooooooooooooooooooooooooooooooV ",
+                " VoXZZSoXZZZZZCoXZCoXZCoXZZZZZCoAZZCoV ",
+                " VooooVoooooooooooooooooooooooooVooooV ",
+                "XFZZCoBoXZZZCoNoWL   LE NoXZZZCoBoXZZFC",
+                "ooooooooooooooVoH     JoVoooooooooooooo",
+                "XGZZCoNoXZZZCoBoQKKKKKR BoXZZZCoNoXZZGC",
+                " VooooVoooooooooooooooooooooooooVooooV ",
+                " VoXZZDoXZZZZZCoXZCoXZCoXZZZZZCoMZZCoV ",
+                " Vooooooooooooooooo oooooooooooooooooV ",
+                " VoXZZCoXZZCoASoAZZZZZSoASoXZZCoXZZCoV ",
+                " VoooooooooooVVoV     VoVVoooooooooooV ",
+                " MZZZZZZZZZZZDVoV     VoVMZZZZZZZZZZZD ",
+                "              BoB     BoB              ",};
+        char mapa_2[Filas][Columnas]={
+                "              NoN     NoN              ",
+                " AZZZZZZZZZZZSVoV     VoVAZZZZZZZZZZZS ",
+                " V           VVoV     VoVV           V ",
+                " V XZZC XZZC MDoMZZZZZDoMD XZZC XZZC V ",
                 " V                                   V ",
-                " V XZZS XZZZZZC XZC XZC XZZZZZC AZZC V ",
-                " V    V                         V    V ",
-                "XFZZC B XZZZC N WL   LE N XZZZC B XZZFC",
-                "              V H     J V              ",
-                "XGZZC N XZZZC B QKKKKKR B XZZZC N XZZGC",
-                " V    V                         V    V ",
-                " V XZZD XZZZZZC XZC XZC XZZZZZC MZZC V ",
+                " V XZZC AZZS N   N AZGZGZS AZZS XZZC V ",//
+                " V      V  V V   V V V V V V  V      V ",
+                "XFZZCoN V  V V   V V V V V V  V NoXZZFC",
+                "ooooooV VZZV VZZZV V V V V VZZV V ooooo",
+                "XGZZCoB V  V V   V V V V V V  V BoXZZGC",
+                " V      V  V V   V V V V V V  V      V ",
+                " VoXZZCoB  B B   B B B B B B  B XZZC V ",//
                 " V                                   V ",
-                " V XZZC XZZC AS AZZZZZS AS XZZC XZZC V ",
-                " V           VV V     V VV           V ",
-                " MZZZZZZZZZZZDV V     V VMZZZZZZZZZZZD ",
-                "              B B     B B              ",};
+                " VoXZZCoXZZCoASoAZZZZZSoASoXZZCoXZZCoV ",
+                " VoooooooooooVVoV     VoVVoooooooooooV ",
+                " MZZZZZZZZZZZDVoV     VoVMZZZZZZZZZZZD ",
+                "              BoB     BoB              ",};
 
         escenario(){
         escenario_ = create_bitmap (1200 ,510);
@@ -81,45 +100,93 @@ class escenario
                 for(col_m1=0; col_m1<Columnas; col_m1++){
                     if (mapa_1[filas_m1][col_m1]=='X')
                         draw_sprite(escenario_,roca,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='Z')
+                    else if (mapa_1[filas_m1][col_m1]=='Z')
                         draw_sprite(escenario_,roca1,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='C')
+                    else if (mapa_1[filas_m1][col_m1]=='C')
                         draw_sprite(escenario_,roca2,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='V')
+                    else if (mapa_1[filas_m1][col_m1]=='V')
                         draw_sprite(escenario_,roca3,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='B')
+                    else if (mapa_1[filas_m1][col_m1]=='B')
                         draw_sprite(escenario_,roca4,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='N')
+                    else if (mapa_1[filas_m1][col_m1]=='N')
                         draw_sprite(escenario_,roca5,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='M')
+                    else if (mapa_1[filas_m1][col_m1]=='M')
                         draw_sprite(escenario_,roca6,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='A')
+                    else if (mapa_1[filas_m1][col_m1]=='A')
                         draw_sprite(escenario_,roca7,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='S')
+                    else if (mapa_1[filas_m1][col_m1]=='S')
                         draw_sprite(escenario_,roca8,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='D')
+                    else if (mapa_1[filas_m1][col_m1]=='D')
                         draw_sprite(escenario_,roca9,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='F')
+                    else if (mapa_1[filas_m1][col_m1]=='F')
                         draw_sprite(escenario_,roca10,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='G')
+                    else if (mapa_1[filas_m1][col_m1]=='G')
                         draw_sprite(escenario_,roca11,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='H')
+                    else if (mapa_1[filas_m1][col_m1]=='H')
                         draw_sprite(escenario_,roca12,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='J')
+                    else if (mapa_1[filas_m1][col_m1]=='J')
                         draw_sprite(escenario_,roca13,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='K')
+                    else if (mapa_1[filas_m1][col_m1]=='K')
                         draw_sprite(escenario_,roca14,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='L')
+                    else if (mapa_1[filas_m1][col_m1]=='L')
                         draw_sprite(escenario_,roca15,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='Q')
+                    else if (mapa_1[filas_m1][col_m1]=='Q')
                         draw_sprite(escenario_,roca16,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='W')
+                    else if (mapa_1[filas_m1][col_m1]=='W')
                         draw_sprite(escenario_,roca17,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='E')
+                    else if (mapa_1[filas_m1][col_m1]=='E')
                         draw_sprite(escenario_,roca18,col_m1*30,filas_m1*30);
-                    if (mapa_1[filas_m1][col_m1]=='R')
+                    else if (mapa_1[filas_m1][col_m1]=='R')
                         draw_sprite(escenario_,roca19,col_m1*30,filas_m1*30);
                     }}}
+
+        void dibujar_mapa2(){
+            int filas_m1, col_m1;
+            for (filas_m1=0; filas_m1< Filas; filas_m1++){
+                for(col_m1=0; col_m1<Columnas; col_m1++){
+                    if (mapa_2[filas_m1][col_m1]=='X')
+                        draw_sprite(escenario_,roca,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='Z')
+                        draw_sprite(escenario_,roca1,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='C')
+                        draw_sprite(escenario_,roca2,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='V')
+                        draw_sprite(escenario_,roca3,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='B')
+                        draw_sprite(escenario_,roca4,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='N')
+                        draw_sprite(escenario_,roca5,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='M')
+                        draw_sprite(escenario_,roca6,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='A')
+                        draw_sprite(escenario_,roca7,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='S')
+                        draw_sprite(escenario_,roca8,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='D')
+                        draw_sprite(escenario_,roca9,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='F')
+                        draw_sprite(escenario_,roca10,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='G')
+                        draw_sprite(escenario_,roca11,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='H')
+                        draw_sprite(escenario_,roca12,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='J')
+                        draw_sprite(escenario_,roca13,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='K')
+                        draw_sprite(escenario_,roca14,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='L')
+                        draw_sprite(escenario_,roca15,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='Q')
+                        draw_sprite(escenario_,roca16,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='W')
+                        draw_sprite(escenario_,roca17,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='E')
+                        draw_sprite(escenario_,roca18,col_m1*30,filas_m1*30);
+                    else if (mapa_2[filas_m1][col_m1]=='R')
+                        draw_sprite(escenario_,roca19,col_m1*30,filas_m1*30);
+                    }}}
+
+
 
 
 };

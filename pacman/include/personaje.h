@@ -41,7 +41,9 @@ class personaje : public entidad
                 draw_sprite(escenario1.escenario_, pacman,posX, posY);}
         }
 
-        void movimiento( escenario escenario1, int numJugadores){
+
+
+        void movimiento( escenario e1, int numJugadores){
 
 
             if (numJugadores==1){
@@ -62,40 +64,46 @@ class personaje : public entidad
                 else if (key[KEY_I]) direccion=4;
                 else if (key[KEY_K]) direccion=3; }
 
+            int d2=e1.mapa_1[posY/30][(posX-30)/30];
+            int d0=e1.mapa_1[posY/30][(posX+30)/30];
+            int d4=e1.mapa_1[(posY-30)/30][posX/30];
+            int d3=e1.mapa_1[(posY+30)/30][posX/30];
+
             if(direccion==2) {
-                if (escenario1.mapa_1[posY/30][(posX-30)/30] != 'X')
+            if ((d2 != 'V') && (d2 != 'D')&& (d2 != 'C')&& (d2 != 'N') && (d2 != 'S') && (d2 != 'B') && (d2 != 'J') && (d2 != 'R') && (d2 != 'E') && (d2 != 'W')&& (d2 != 'L')&& (d2 != 'H') )
                     posX -=30;
                 else
                     direccion=1;
             }
             if(direccion==0) {
-                if (escenario1.mapa_1[posY/30][(posX+30)/30] != 'X')
+                if ((d0 != 'V') && (d0 != 'A')&& (d0 != 'X')&& (d0 != 'N') && (d0 != 'M') && (d0 != 'B') && (d0 != 'J') && (d0 != 'R') && (d0 != 'E')&& (d0 != 'Q') && (d0 != 'W')&& (d0 != 'L')&& (d0 != 'H'))
                     posX +=30;
                 else
                     direccion=1;
                 }
             if (direccion==4) {
-                if (escenario1.mapa_1[(posY-30)/30][posX/30]!= 'X')
+                if ((d4 != 'X') && (d4!= 'Z')&& (d4 != 'C')&& (d4 != 'K') && (d4 != 'Q') && (d4 != 'M') && (d4 != 'B') && (d4 != 'D') && (d4 != 'R') && (d4 != 'N'))
                     posY -=30;
                 else
                     direccion=1;
                     }
             if(direccion==3) {
-                 if (escenario1.mapa_1[(posY+30)/30][posX/30]!= 'X')
+                 if ((d3 != 'X') && (d3!= 'Z')&& (d3 != 'C')&& (d3 != 'K') && (d3 != 'Q') && (d3 != 'M') && (d3 != 'B') && (d3 != 'D') && (d3 != 'R')&& (d3 != 'A')&& (d3 != 'N')&& (d3 != 'S') && (d3 != 'W')&& (d3 != 'L')&& (d3 != 'E'))
                     posY +=30;
                 else
                     direccion=1;
             }
-
+            if(posX<=-30)
+                posX=1170;
+            else if (posX>=1170)
+                posX=-30;
+            if (posY<=-30)
+                posY=510;
+            else if (posY>=510)
+                posY=-30;
         }
 
-        void comer(escenario mapa1){
-            for (int filas_m1=0; filas_m1< 17; filas_m1++){
-                for(int col_m1=0; col_m1<40; col_m1++){
-                    if (posY/30==filas_m1 &&posX/30 == col_m1)
-                        mapa1.mapa_1[filas_m1][col_m1]=' ';}}
 
-        }
 
         void choqueFantasma(enemigo en1,escenario escenario1, claseallegro juego){
 
@@ -108,7 +116,7 @@ class personaje : public entidad
                         draw_sprite(escenario1.escenario_,pacman,posX, posY);
                         juego.pantalla(escenario1);
                         rest(90);}
-                    posX=30*10;
+                    posX=30*19;
                     posY=30*12;
                     direccion=1;}}
 
